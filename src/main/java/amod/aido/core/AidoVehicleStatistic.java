@@ -33,10 +33,10 @@ import ch.ethz.idsc.tensor.qty.Quantity;
      * @return vector of length 2, entries have unit "m" */
     Tensor distance(VehicleContainer vehicleContainer) {
         Tensor distance = StaticHelper.ZEROS.copy();
-        if (vehicleContainer.linkIndex != lastLinkIndex) {
+        if (vehicleContainer.getLastLinkIndex() != lastLinkIndex) {
             distance = consolidate();
             list.clear();
-            lastLinkIndex = vehicleContainer.linkIndex;
+            lastLinkIndex = vehicleContainer.getLastLinkIndex();
         }
         list.add(vehicleContainer);
         return distance;
@@ -51,7 +51,7 @@ import ch.ethz.idsc.tensor.qty.Quantity;
         Scalar distDrive = Quantity.of(0, SI.METER);
         Scalar distEmpty = Quantity.of(0, SI.METER);
         if (!list.isEmpty()) {
-            final int linkId = list.get(0).linkIndex;
+            final int linkId = list.get(0).getLastLinkIndex();
             Link distanceLink = db.getOsmLink(linkId).link;
             /** this total distance on the link was travelled on during all simulationObjects stored
              * in the list. */
