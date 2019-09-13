@@ -57,11 +57,11 @@ import ch.ethz.idsc.tensor.qty.Quantity;
              * in the list. */
             Scalar distance = Quantity.of(distanceLink.getLength(), SI.METER);
 
-            int part = Math.toIntExact(list.stream().filter(vc -> vc.roboTaxiStatus.isDriving()).count());
+            int part = Math.toIntExact(list.stream().filter(vc -> vc.getLastStatus().isDriving()).count());
             Scalar stepDistcontrib = distance.divide(RationalScalar.of(part, 1));
 
             for (VehicleContainer vehicleContainer : list) {
-                switch (vehicleContainer.roboTaxiStatus) {
+                switch (vehicleContainer.getLastStatus()) {
                 case DRIVEWITHCUSTOMER:
                     distDrive = distDrive.add(stepDistcontrib);
                     break;

@@ -34,7 +34,7 @@ import ch.ethz.idsc.tensor.Tensors;
         simulationObject.vehicles.stream().forEach(vc -> //
         {
             int vehicle = vc.vehicleIndex;
-            if (vc.roboTaxiStatus.equals(RoboTaxiStatus.DRIVEWITHCUSTOMER) //
+            if (vc.getLastStatus().equals(RoboTaxiStatus.DRIVEWITHCUSTOMER) //
                     && !prevStatus.get(vehicle).equals(RoboTaxiStatus.DRIVEWITHCUSTOMER))
                 vehicleRequestCount.put(vehicle, vehicleRequestCount.get(vehicle) + 1);
         });
@@ -42,7 +42,7 @@ import ch.ethz.idsc.tensor.Tensors;
         /** add previous status */
         simulationObject.vehicles.stream().forEach(vc -> //
         {
-            prevStatus.put(vc.vehicleIndex, vc.roboTaxiStatus);
+            prevStatus.put(vc.vehicleIndex, vc.getLastStatus());
 
         });
 
